@@ -47,6 +47,7 @@ export class AppComponent {
   };
 
   public chartOptions: any = {
+    animation: { duration: 0 },
     showLine: true,
     pointRadius: 0,
     responsive: true,
