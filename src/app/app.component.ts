@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ElementService } from './element.service';
+import { ChartConfiguration, ChartOptions } from "chart.js";
+import { FprimeService } from './fprime.service';
 
 const hc = 12398.4197386209;
 
@@ -12,7 +14,31 @@ export class AppComponent {
   public wavelength = 0.9795;
   public energy = Math.round(hc / this.wavelength);
   public search: string = "";
-  constructor(public element: ElementService) { }
+
+  public chartData: ChartConfiguration<'line'>['data'] = {
+    labels: this.fprime.energy,
+    datasets: [
+      {
+        data: this.fprime.f1,
+        label: "F'",
+        tension: 0.5,
+        borderColor: 'black',
+      },
+      {
+        data: this.fprime.f2,
+        label: 'F"',
+        tension: 0.5,
+        borderColor: 'black',
+      }
+    ]
+  };
+  public chartOptions: ChartOptions<'line'> = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
+  public chartLegend = false;
+
+  constructor(public element: ElementService, private fprime: FprimeService) { }
 
   wavelengthChanged(wavelength: number) {
     this.wavelength = wavelength;

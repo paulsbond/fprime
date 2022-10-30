@@ -33,3 +33,6 @@
     <span class="material-symbols-outlined">search</span>
     <input list="elements" placeholder="Add element" [(ngModel)]="search" (ngModelChange)="searchChanged()">
 </label>
+<div class="chart">
+    <canvas baseChart [type]="'line'" [data]="chartData" [options]="chartOptions" [legend]="chartLegend"></canvas>
+</div>

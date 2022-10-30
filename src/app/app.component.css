@@ -56,3 +56,9 @@ td>.material-symbols-outlined {
 td.number {
     text-align: right;
 }
+
+.chart {
+    width: 100%;
+    max-width: 1000px;
+    height: 350px;
+}
