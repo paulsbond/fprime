@@ -8,28 +8,28 @@
         <input type="number" [ngModel]="energy" (ngModelChange)="energyChanged($event)">
     </label>
 </div>
-<datalist id="elements">
-    <option *ngFor="let element of element.list" [value]="element.label"></option>
-</datalist>
 <table>
     <thead>
         <tr>
             <th>Element</th>
             <th>F'</th>
             <th>F"</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let element of selected">
-            <td>{{element.label}}</td>
-            <td>-8.320</td>
-            <td>3.846</td>
-        </tr>
-        <tr>
-            <td><input list="elements" placeholder="Add element" [(ngModel)]="search"
-                    (ngModelChange)="searchChanged()"></td>
-            <td></td>
-            <td></td>
+            <td>{{element.name}}</td>
+            <td class="number">-8.320</td>
+            <td class="number">3.846</td>
+            <td><span class="material-symbols-outlined" (click)="element.selected = false;">close</span></td>
         </tr>
     </tbody>
 </table>
+<datalist id="elements">
+    <option *ngFor="let element of element.list" [value]="element.label"></option>
+</datalist>
+<label class="search">
+    <span class="material-symbols-outlined">search</span>
+    <input list="elements" placeholder="Add element" [(ngModel)]="search" (ngModelChange)="searchChanged()">
+</label>
