@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { ElementService } from './element.service';
-import { ChartConfiguration, ChartOptions } from "chart.js";
+import { Chart, ChartConfiguration } from "chart.js";
+import annotationPlugin from "chartjs-plugin-annotation";
 import { FprimeService } from './fprime.service';
 
 const hc = 12398.4197386209;
+Chart.register(annotationPlugin);
 
 @Component({
   selector: 'app-root',
@@ -15,27 +17,37 @@ export class AppComponent {
   public energy = Math.round(hc / this.wavelength);
   public search: string = "";
 
-  public chartData: ChartConfiguration<'line'>['data'] = {
-    labels: this.fprime.energy,
+  public chartData: ChartConfiguration<'scatter'>['data'] = {
     datasets: [
       {
-        data: this.fprime.f1,
-        label: "F'",
-        tension: 0.5,
+        data: this.fprime.f1Data,
         borderColor: '#2f5cb8',
       },
       {
-        data: this.fprime.f2,
-        label: 'F"',
-        tension: 0.5,
+        data: this.fprime.f2Data,
         borderColor: '#2f5cb8',
       }
     ]
   };
-  public chartOptions: ChartOptions<'line'> = {
+
+  public chartOptions: any = {
+    showLine: true,
+    pointRadius: 0,
     responsive: true,
     maintainAspectRatio: false,
-    elements: { point: { radius: 0 } },
+    scales: { x: { bounds: 'data' } },
+    plugins: {
+      annotation: {
+        annotations: [
+          {
+            type: "line",
+            xMin: 12658,
+            xMax: 12658,
+            borderColor: "#777",
+          }
+        ]
+      }
+    }
   };
   public chartLegend = false;
 

@@ -577,6 +577,13 @@ export class FprimeService {
     1.790628,
     1.775311,
   ];
+  public f1Data: { x: number, y: number }[] = [];
+  public f2Data: { x: number, y: number }[] = [];
 
-  constructor() { }
+  constructor() {
+    for (let i = 0; i < this.energy.length; i++) {
+      this.f1Data.push({ x: this.energy[i], y: this.f1[i] });
+      this.f2Data.push({ x: this.energy[i], y: this.f2[i] });
+    }
+  }
 }
