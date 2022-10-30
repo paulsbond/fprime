@@ -1,7 +1,13 @@
-<form>
-    <label>Wavelength / Å<input type="number"></label>
-    <label>Energy / eV<input type="number"></label>
-</form>
+<div class="energies">
+    <label>
+        <span>Wavelength / Å</span>
+        <input type="number" step="0.0001" [ngModel]="wavelength" (ngModelChange)="wavelengthChanged($event)">
+    </label>
+    <label>
+        <span>Energy / eV</span>
+        <input type="number" [ngModel]="energy" (ngModelChange)="energyChanged($event)">
+    </label>
+</div>
 <datalist id="elements">
     <option *ngFor="let element of element.list" [value]="element.label"></option>
 </datalist>
