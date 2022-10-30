@@ -1,14 +1,14 @@
 <div class="energies">
     <label>
         <span>Wavelength / Å</span>
-        <input type="number" step="0.0001" [ngModel]="wavelength" (ngModelChange)="wavelengthChanged($event)">
+        <input type="number" step="0.0001" [(ngModel)]="wavelength" (input)="wavelengthInput()">
     </label>
     <label>
         <span>Energy / eV</span>
-        <input type="number" [ngModel]="energy" (ngModelChange)="energyChanged($event)">
+        <input type="number" [(ngModel)]="energy" (input)="energyInput()">
     </label>
 </div>
-<table>
+<table *ngIf="selected.length > 0">
     <thead>
         <tr>
             <th colspan="2">Element</th>
@@ -24,7 +24,9 @@
             <td>{{element.symbol}}</td>
             <td class="number">-8.320</td>
             <td class="number">3.846</td>
-            <td><div class="color"></div></td>
+            <td>
+                <div class="color"></div>
+            </td>
             <td><span class="material-symbols-outlined" (click)="element.selected = false;">close</span></td>
         </tr>
     </tbody>

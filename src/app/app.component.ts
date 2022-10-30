@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ElementService } from './element.service';
 import { Chart, ChartConfiguration } from "chart.js";
 import annotationPlugin from "chartjs-plugin-annotation";
 import { FprimeService } from './fprime.service';
+import { BaseChartDirective } from 'ng2-charts';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 const hc = 12398.4197386209;
 Chart.register(annotationPlugin);
@@ -13,9 +15,23 @@ Chart.register(annotationPlugin);
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public wavelength = 0.9795;
-  public energy = Math.round(hc / this.wavelength);
   public search: string = "";
+  public wavelength = 0.9795;
+  private _energy = Math.round(hc / this.wavelength);
+  private energySubject = new Subject<number>();
+
+  get energy() { return this._energy; }
+
+  set energy(value: number) {
+    this._energy = value;
+    this.energySubject.next(value);
+  }
+
+  constructor(public element: ElementService, private fprime: FprimeService) {
+    this.energySubject
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe(this.energyChanged);
+  }
 
   public chartData: ChartConfiguration<'scatter'>['data'] = {
     datasets: [
@@ -51,16 +67,23 @@ export class AppComponent {
   };
   public chartLegend = false;
 
-  constructor(public element: ElementService, private fprime: FprimeService) { }
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  wavelengthChanged(wavelength: number) {
-    this.wavelength = wavelength;
-    this.energy = Math.round(hc / wavelength);
+  wavelengthInput() {
+    this.energy = Math.round(hc / this.wavelength);
+  };
+
+  energyInput() {
+    this.wavelength = +(hc / this.energy).toFixed(4);
   }
 
-  energyChanged(energy: number) {
-    this.energy = energy;
-    this.wavelength = +(hc / energy).toFixed(4);
+  energyChanged = (energy: number) => {
+    if (energy >= 5000 && energy <= 20000) {
+      this.chartOptions.plugins.annotation.annotations[0].xMin = this.energy;
+      this.chartOptions.plugins.annotation.annotations[0].xMax = this.energy;
+      this.chart?.update();
+      this.chart?.ngOnChanges({});
+    }
   }
 
   searchChanged() {
