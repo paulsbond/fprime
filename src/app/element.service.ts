@@ -85,7 +85,7 @@ export class ElementService {
     new Element(71, "Lu", "Lutetium"),
     new Element(72, "Hf", "Hafnium"),
     new Element(73, "Ta", "Tantalum"),
-    new Element(74, "W", "Wolfram"),
+    new Element(74, "W", "Tungsten"),
     new Element(75, "Re", "Rhenium"),
     new Element(76, "Os", "Osmium"),
     new Element(77, "Ir", "Iridium"),
