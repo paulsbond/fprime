@@ -1,0 +1,28 @@
+<form>
+    <label>Wavelength / Å<input type="number"></label>
+    <label>Energy / eV<input type="number"></label>
+</form>
+<datalist id="elements">
+    <option *ngFor="let element of element.list" [value]="element.label"></option>
+</datalist>
+<table>
+    <thead>
+        <tr>
+            <th>Element</th>
+            <th>F'</th>
+            <th>F"</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let element of selected">
+            <td>{{element.label}}</td>
+            <td>-8.320</td>
+            <td>3.846</td>
+        </tr>
+        <tr>
+            <td><input list="elements" placeholder="Add element"></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
