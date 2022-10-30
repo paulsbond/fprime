@@ -11,17 +11,20 @@
 <table>
     <thead>
         <tr>
-            <th>Element</th>
+            <th colspan="2">Element</th>
             <th>F'</th>
             <th>F"</th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let element of selected">
-            <td>{{element.name}}</td>
+            <td>{{element.z}}</td>
+            <td>{{element.symbol}}</td>
             <td class="number">-8.320</td>
             <td class="number">3.846</td>
+            <td><div class="color"></div></td>
             <td><span class="material-symbols-outlined" (click)="element.selected = false;">close</span></td>
         </tr>
     </tbody>

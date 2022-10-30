@@ -22,19 +22,20 @@ export class AppComponent {
         data: this.fprime.f1,
         label: "F'",
         tension: 0.5,
-        borderColor: 'black',
+        borderColor: '#2f5cb8',
       },
       {
         data: this.fprime.f2,
         label: 'F"',
         tension: 0.5,
-        borderColor: 'black',
+        borderColor: '#2f5cb8',
       }
     ]
   };
   public chartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
+    elements: { point: { radius: 0 } },
   };
   public chartLegend = false;
 
