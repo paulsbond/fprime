@@ -26,7 +26,8 @@
             <td>3.846</td>
         </tr>
         <tr>
-            <td><input list="elements" placeholder="Add element"></td>
+            <td><input list="elements" placeholder="Add element" [(ngModel)]="search"
+                    (ngModelChange)="searchChanged()"></td>
             <td></td>
             <td></td>
         </tr>
