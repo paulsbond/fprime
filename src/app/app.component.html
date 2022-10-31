@@ -25,18 +25,18 @@
             <td class="number">-8.320</td>
             <td class="number">3.846</td>
             <td>
-                <div class="color"></div>
+                <div class="color" [style.background-color]="element.color"></div>
             </td>
-            <td><span class="material-symbols-outlined" (click)="element.selected = false;">close</span></td>
+            <td><span class="material-symbols-outlined" (click)="deselect(element)">close</span></td>
         </tr>
     </tbody>
 </table>
 <datalist id="elements">
     <option *ngFor="let element of element.list" [value]="element.label"></option>
 </datalist>
-<label class="search">
+<label class="search" *ngIf="selected.length < 5">
     <span class="material-symbols-outlined">search</span>
-    <input list="elements" placeholder="Add element" [(ngModel)]="search" (ngModelChange)="searchChanged()">
+    <input list="elements" placeholder="Add element" [(ngModel)]="search" (input)="searchInput()">
 </label>
 <div class="chart">
     <canvas baseChart [type]="'scatter'" [data]="chartData" [options]="chartOptions" [legend]="chartLegend"></canvas>

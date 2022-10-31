@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 
-class Element {
+export class Element {
   constructor(
     public z: number,
     public symbol: string,
     public name: string,
     public selected: boolean = false,
+    public color?: string
   ) { }
 
   get label(): string { return this.z + " - " + this.symbol + " - " + this.name };
@@ -45,7 +46,7 @@ export class ElementService {
     new Element(31, "Ga", "Gallium"),
     new Element(32, "Ge", "Germanium"),
     new Element(33, "As", "Arsenic"),
-    new Element(34, "Se", "Selenium", true),
+    new Element(34, "Se", "Selenium"),
     new Element(35, "Br", "Bromine"),
     new Element(36, "Kr", "Krypton"),
     new Element(37, "Rb", "Rubidium"),

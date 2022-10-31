@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ElementService } from './element.service';
+import { Element, ElementService } from './element.service';
 import { Chart, ChartConfiguration } from "chart.js";
 import annotationPlugin from "chartjs-plugin-annotation";
 import { FprimeService } from './fprime.service';
@@ -19,6 +19,13 @@ export class AppComponent {
   public wavelength = 0.9795;
   private _energy = Math.round(hc / this.wavelength);
   private energySubject = new Subject<number>();
+  private colors = [
+    "rgb(100, 143, 255)",
+    "rgb(120, 94, 240)",
+    "rgb(220, 38, 127)",
+    "rgb(254, 97, 0)",
+    "rgb(255, 176, 0)",
+  ];
 
   get energy() { return this._energy; }
 
@@ -28,6 +35,8 @@ export class AppComponent {
   }
 
   constructor(public element: ElementService, private fprime: FprimeService) {
+    const selenium = this.element.list.find(x => x.symbol == "Se");
+    if (selenium) this.select(selenium);
     this.energySubject
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe(this.energyChanged);
@@ -37,11 +46,11 @@ export class AppComponent {
     datasets: [
       {
         data: this.fprime.f1Data,
-        borderColor: '#2f5cb8',
+        borderColor: '#648FFF',
       },
       {
         data: this.fprime.f2Data,
-        borderColor: '#2f5cb8',
+        borderColor: '#648FFF',
       }
     ]
   };
@@ -63,7 +72,8 @@ export class AppComponent {
             borderColor: "#777",
           }
         ]
-      }
+      },
+      tooltip: { enabled: false }
     }
   };
   public chartLegend = false;
@@ -78,6 +88,14 @@ export class AppComponent {
     this.wavelength = +(hc / this.energy).toFixed(4);
   }
 
+  searchInput() {
+    const element = this.element.list.find(x => x.label == this.search);
+    if (element) {
+      this.select(element);
+      this.search = "";
+    }
+  }
+
   energyChanged = (energy: number) => {
     if (energy >= 5000 && energy <= 20000) {
       this.chartOptions.plugins.annotation.annotations[0].xMin = this.energy;
@@ -87,12 +105,15 @@ export class AppComponent {
     }
   }
 
-  searchChanged() {
-    const element = this.element.list.find(x => x.label == this.search);
-    if (element) {
-      element.selected = true;
-      this.search = "";
-    }
+  select(element: Element) {
+    element.selected = true;
+    element.color = this.colors.shift();
+  }
+
+  deselect(element: Element) {
+    if (element.color) this.colors.push(element.color);
+    element.selected = false;
+    element.color = undefined;
   }
 
   get selected() { return this.element.list.filter(x => x.selected); }
