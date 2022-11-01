@@ -11,18 +11,17 @@ struct Fprime
 
 Fprime fprime(int z, double energy)
 {
-    double fpp[0];
-    double fp = gemmi::cromer_liberman(z, energy, fpp);
-    return {fp, fpp[0]};
+    double fpp;
+    double fp = gemmi::cromer_liberman(z, energy, &fpp);
+    return {fp, fpp};
 }
 
 std::vector<Fprime> fprimes(int z, std::vector<double> energies)
 {
     const int npts = energies.size();
-    double *energy = &energies[0];
     double fp[npts];
     double fpp[npts];
-    gemmi::cromer_liberman_for_array(z, npts, energy, fp, fpp);
+    gemmi::cromer_liberman_for_array(z, npts, &energies[0], fp, fpp);
     std::vector<Fprime> output;
     for (int i = 0; i < npts; i++)
     {
