@@ -1,0 +1,17 @@
+<!doctype html>
+<title>Fprime Test</title>
+<script>
+    var Module = {
+        onRuntimeInitialized: function () {
+            console.log(Module.fprime(34, 12658));
+            const energies = new Module.VectorDouble();
+            energies.push_back(12000);
+            energies.push_back(13000);
+            const result = Module.fprimes(34, energies);
+            for (let i = 0; i < result.size(); i++) {
+                console.log(energies.get(i), result.get(i));
+            }
+        }
+    }
+</script>
+<script src="fprime.js"></script>
