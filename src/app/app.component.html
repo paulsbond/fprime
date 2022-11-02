@@ -46,3 +46,13 @@
     <span class="material-symbols-outlined" (click)="update_zoom(zoom * 2)">zoom_out</span>
     <span class="material-symbols-outlined" (click)="update_zoom(8192)">undo</span>
 </div>
+<p class="description">
+    Calculates anomalous scattering factors (f' and f") using the
+    <a href="https://doi.org/10.1107/S0567739481000600">Cromer-Liberman</a>
+    algorithm with corrections from
+    <a href="https://doi.org/10.1107/S0108767389010718">Kissel and Pratt</a>.
+    Uses the implementation in
+    <a href="https://gemmi.readthedocs.io/en/latest/hkl.html#anomalous">Gemmi</a>
+    compiled to WebAssembly using
+    <a href="https://emscripten.org">Emscripten</a>.
+</p>

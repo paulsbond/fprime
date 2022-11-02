@@ -12,6 +12,10 @@
     gap: 20px;
 }
 
+a {
+    color: #61dafb;
+}
+
 input {
     font-size: 1em;
     height: 1.8em;
@@ -73,4 +77,10 @@ td.number {
     display: flex;
     gap: 20px;
     font-size: 1.1em;
+}
+
+.description {
+    color: #ccc;
+    margin-top: 1em;
+    max-width: 650px;
 }
