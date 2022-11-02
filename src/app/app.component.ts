@@ -148,8 +148,8 @@ export class AppComponent {
     }
     const fprimes = Module.fprimes(element.z, energies);
     const datasets: ChartDataset<'scatter'>[] = [
-      { data: [], borderColor: element.color },
-      { data: [], borderColor: element.color },
+      { data: [], borderColor: element.color, backgroundColor: element.color },
+      { data: [], borderColor: element.color, backgroundColor: element.color },
     ];
     for (let i = 0; i < fprimes.size(); i++) {
       datasets[0].data.push({ x: energies.get(i), y: fprimes.get(i).fp });
