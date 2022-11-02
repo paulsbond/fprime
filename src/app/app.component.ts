@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Element, elements } from './elements';
 import { Chart } from "chart.js";
 import annotationPlugin from "chartjs-plugin-annotation";
@@ -43,7 +43,7 @@ export class AppComponent {
     }
   };
   public chartLegend = false;
-  private _energy = Math.round(hc / this.wavelength);
+  private _energy = 12658;
   private energySubject = new Subject<number>();
   private colors = [
     "rgb(100, 143, 255)",
@@ -61,11 +61,10 @@ export class AppComponent {
     this.energySubject.next(value);
   }
 
-  constructor(private appRef: ApplicationRef) {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
     Module['onRuntimeInitialized'] = () => {
       const selenium = elements.find(x => x.symbol == "Se");
       if (selenium) this.select(selenium);
-      appRef.tick();
     };
     this.energySubject
       .pipe(debounceTime(500), distinctUntilChanged())
@@ -89,12 +88,9 @@ export class AppComponent {
   }
 
   energyChanged = (energy: number) => {
-    if (energy >= 5000 && energy <= 20000) {
-      this.chartOptions.plugins.annotation.annotations[0].xMin = this.energy;
-      this.chartOptions.plugins.annotation.annotations[0].xMax = this.energy;
-      this.chart?.update();
-      this.chart?.ngOnChanges({});
-    }
+    this.chartOptions.plugins.annotation.annotations[0].xMin = this.energy;
+    this.chartOptions.plugins.annotation.annotations[0].xMax = this.energy;
+    this.updateChartData();
   }
 
   public f1(z: number, energy: number): number {
@@ -125,11 +121,16 @@ export class AppComponent {
       this.chartData.datasets = this.chartData.datasets.concat(this.datasets(element));
     });
     this.chart?.update();
+    this.chart?.ngOnChanges({});
+    this.changeDetectorRef.detectChanges();
   }
 
   private datasets(element: Element): ChartDataset<'scatter'>[] {
     const energies = new Module.VectorDouble();
-    for (let energy = 5000; energy <= 20000; energy += 50) {
+    const min_energy = this.energy - 8000;
+    const max_energy = this.energy + 8000;
+    const energy_step = (max_energy - min_energy) / 500;
+    for (let energy = min_energy; energy <= max_energy; energy += energy_step) {
       energies.push_back(energy);
     }
     const fprimes = Module.fprimes(element.z, energies);
