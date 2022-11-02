@@ -84,10 +84,21 @@ export class AppComponent {
     }
   }
 
-  energyChanged = (energy: number) => {
+  energyChanged = () => {
     this.chartOptions.plugins.annotation.annotations[0].xMin = this.energy;
     this.chartOptions.plugins.annotation.annotations[0].xMax = this.energy;
     this.updateChartData();
+  }
+
+  chartClicked = (event: any) => {
+    const x = event.event.x;
+    const scale = event.event.chart.scales["x"];
+    if (x >= scale.left && x <= scale.right) {
+      const t = (x - scale.left) / (scale.right - scale.left);
+      const energy = (1 - t) * scale.min + t * scale.max;
+      this.energy = Math.round(energy);
+      this.energyInput();
+    }
   }
 
   public f1(z: number, energy: number): number {

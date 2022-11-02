@@ -39,7 +39,8 @@
     <input list="elements" placeholder="Add element" [(ngModel)]="search" (input)="searchInput()">
 </label>
 <div class="chart" *ngIf="selected.length > 0">
-    <canvas baseChart [type]="'scatter'" [data]="chartData" [options]="chartOptions" [legend]="chartLegend"></canvas>
+    <canvas baseChart [type]="'scatter'" [data]="chartData" [options]="chartOptions" [legend]="chartLegend"
+        (chartClick)="chartClicked($event)"></canvas>
 </div>
 <div class="zoom" *ngIf="selected.length > 0">
     <span class="material-symbols-outlined" (click)="update_zoom(zoom / 2)">zoom_in</span>
