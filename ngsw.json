@@ -1,0 +1,75 @@
+{
+  "configVersion": 1,
+  "timestamp": 1667391746729,
+  "index": "/fprime/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/fprime/favicon.ico",
+        "/fprime/index.html",
+        "/fprime/main.a30b105eab10fcc6.js",
+        "/fprime/manifest.webmanifest",
+        "/fprime/polyfills.0caf045a1c1c0ed1.js",
+        "/fprime/runtime.d2cf0a50c2477be6.js",
+        "/fprime/styles.3f35c04662b47346.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/fprime/assets/favicon/favicon-192.png",
+        "/fprime/assets/favicon/favicon-512.png",
+        "/fprime/assets/favicon/favicon-apple.png",
+        "/fprime/assets/fprime.js",
+        "/fprime/assets/fprime.wasm"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/fprime/assets/favicon/favicon-192.png": "712e7953017ea9719b2109f8d1f432001bfcb95f",
+    "/fprime/assets/favicon/favicon-512.png": "19ad8f5c61595c68525d3e2ca23f792d716010d7",
+    "/fprime/assets/favicon/favicon-apple.png": "a6d12fdd256bca776edec0f8a97e340f3d92b800",
+    "/fprime/assets/fprime.js": "75c38eee10c6ee41f4c01c2ba7f93a03be70e967",
+    "/fprime/assets/fprime.wasm": "ae0288151eaddc94ac9991d64a2b47f21b4436e5",
+    "/fprime/favicon.ico": "ab39f33a3710d0b4ed538e491a2f92118f200e0c",
+    "/fprime/index.html": "ad34a0976c7354db320a4cd264c42340326a977f",
+    "/fprime/main.a30b105eab10fcc6.js": "1de80f7bf0e8ce6bc489743041adf37e64c41f3f",
+    "/fprime/manifest.webmanifest": "c067fe0b75d959dfef4f21498f5497e8fbd69279",
+    "/fprime/polyfills.0caf045a1c1c0ed1.js": "4645ec7b2a7c03305b4aee65c1d4e6695bec70fb",
+    "/fprime/runtime.d2cf0a50c2477be6.js": "cd84db9c5eb1fa70ab5a55aa117bf48cc3757137",
+    "/fprime/styles.3f35c04662b47346.css": "eebbbcf86426aea35b602bbd270d16af7cd6c674"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

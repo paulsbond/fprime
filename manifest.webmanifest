@@ -1,0 +1,22 @@
+{
+  "name": "Fprime",
+  "short_name": "Fprime",
+  "description": "Calculate anomalous scattering factors",
+  "theme_color": "#1976d2",
+  "background_color": "#1976d2",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "assets/favicon/favicon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/favicon/favicon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
