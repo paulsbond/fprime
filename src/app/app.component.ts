@@ -63,10 +63,6 @@ export class AppComponent {
   }
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {
-    Module['onRuntimeInitialized'] = () => {
-      const selenium = elements.find(x => x.symbol == "Se");
-      if (selenium) this.select(selenium);
-    };
     this.energySubject
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe(this.energyChanged);
