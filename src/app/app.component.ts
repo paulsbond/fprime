@@ -47,11 +47,11 @@ export class AppComponent {
   private _energy = 12658;
   private energySubject = new Subject<number>();
   private colors = [
-    "rgb(100, 143, 255)",
-    "rgb(120, 94, 240)",
-    "rgb(220, 38, 127)",
-    "rgb(254, 97, 0)",
-    "rgb(255, 176, 0)",
+    "#3366cc",
+    "#dc3912",
+    "#ff9900",
+    "#109618",
+    "#990099",
   ];
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
