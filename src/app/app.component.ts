@@ -106,7 +106,7 @@ export class AppComponent {
   }
 
   public deselect(element: Element) {
-    if (element.color) this.colors.push(element.color);
+    if (element.color) this.colors.unshift(element.color);
     element.color = undefined;
     this.selected = this.selected.filter(e => e !== element);
     this.updateChartData();
