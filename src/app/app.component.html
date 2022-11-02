@@ -22,8 +22,8 @@
         <tr *ngFor="let element of selected">
             <td>{{element.z}}</td>
             <td>{{element.symbol}}</td>
-            <td class="number">-8.320</td>
-            <td class="number">3.846</td>
+            <td class="number">{{f1(element.z, energy) | number: '1.3-3'}}</td>
+            <td class="number">{{f2(element.z, energy) | number: '1.3-3'}}</td>
             <td>
                 <div class="color" [style.background-color]="element.color"></div>
             </td>
@@ -32,12 +32,12 @@
     </tbody>
 </table>
 <datalist id="elements">
-    <option *ngFor="let element of element.list" [value]="element.label"></option>
+    <option *ngFor="let element of elements" [value]="element.label"></option>
 </datalist>
 <label class="search" *ngIf="selected.length < 5">
     <span class="material-symbols-outlined">search</span>
     <input list="elements" placeholder="Add element" [(ngModel)]="search" (input)="searchInput()">
 </label>
-<div class="chart">
+<div class="chart" *ngIf="selected.length > 0">
     <canvas baseChart [type]="'scatter'" [data]="chartData" [options]="chartOptions" [legend]="chartLegend"></canvas>
 </div>
