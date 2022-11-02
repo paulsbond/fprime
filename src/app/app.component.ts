@@ -40,6 +40,10 @@ export class AppComponent {
         ]
       },
       tooltip: { enabled: false }
+    },
+    interaction: {
+      intersect: false,
+      mode: 'index'
     }
   };
   public chartLegend = false;
@@ -91,14 +95,10 @@ export class AppComponent {
   }
 
   chartClicked = (event: any) => {
-    const x = event.event.x;
-    const scale = event.event.chart.scales["x"];
-    if (x >= scale.left && x <= scale.right) {
-      const t = (x - scale.left) / (scale.right - scale.left);
-      const energy = (1 - t) * scale.min + t * scale.max;
-      this.energy = Math.round(energy);
-      this.energyInput();
-    }
+    this.zoom /= 2;
+    const energy = event.event.chart.scales.x.getValueForPixel(event.event.x);
+    this.energy = Math.round(energy);
+    this.energyInput();
   }
 
   public f1(z: number, energy: number): number {
