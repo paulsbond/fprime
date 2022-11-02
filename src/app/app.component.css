@@ -47,7 +47,7 @@ td {
     padding: 2px 8px;
 }
 
-td>.material-symbols-outlined {
+.material-symbols-outlined {
     color: #a0aabe;
     vertical-align: middle;
     cursor: pointer;
@@ -67,4 +67,10 @@ td.number {
     width: 100%;
     max-width: 1000px;
     height: 350px;
+}
+
+.zoom {
+    display: flex;
+    gap: 20px;
+    font-size: 1.1em;
 }

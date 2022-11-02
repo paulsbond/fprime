@@ -41,3 +41,8 @@
 <div class="chart" *ngIf="selected.length > 0">
     <canvas baseChart [type]="'scatter'" [data]="chartData" [options]="chartOptions" [legend]="chartLegend"></canvas>
 </div>
+<div class="zoom" *ngIf="selected.length > 0">
+    <span class="material-symbols-outlined" (click)="update_zoom(zoom / 2)">zoom_in</span>
+    <span class="material-symbols-outlined" (click)="update_zoom(zoom * 2)">zoom_out</span>
+    <span class="material-symbols-outlined" (click)="update_zoom(8192)">undo</span>
+</div>

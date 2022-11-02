@@ -43,6 +43,7 @@ export class AppComponent {
     }
   };
   public chartLegend = false;
+  public zoom: number = 8192;
   private _energy = 12658;
   private energySubject = new Subject<number>();
   private colors = [
@@ -115,6 +116,11 @@ export class AppComponent {
     this.updateChartData();
   }
 
+  public update_zoom(zoom: number) {
+    this.zoom = zoom;
+    this.updateChartData();
+  }
+
   private updateChartData() {
     this.chartData.datasets = [];
     this.selected.forEach((element) => {
@@ -127,8 +133,8 @@ export class AppComponent {
 
   private datasets(element: Element): ChartDataset<'scatter'>[] {
     const energies = new Module.VectorDouble();
-    const min_energy = this.energy - 8000;
-    const max_energy = this.energy + 8000;
+    const min_energy = this.energy - this.zoom;
+    const max_energy = this.energy + this.zoom;
     const energy_step = (max_energy - min_energy) / 500;
     for (let energy = min_energy; energy <= max_energy; energy += energy_step) {
       energies.push_back(energy);
