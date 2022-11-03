@@ -59,6 +59,7 @@ export class AppComponent {
     }
   };
   public chartLegend = false;
+  public theme: 'dark' | 'light' = 'dark';
   private _wavelength = 1;
   private _energy = 12398;
   private energySubject = new Subject<number>();
@@ -134,6 +135,11 @@ export class AppComponent {
     element.color = undefined;
     this.selected = this.selected.filter(e => e !== element);
     this.updateChartData();
+  }
+
+  public toggleTheme() {
+    this.theme = this.theme === 'dark' ? 'light' : 'dark';
+    document.body.classList.toggle("light");
   }
 
   private updateChartData() {

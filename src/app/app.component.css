@@ -5,23 +5,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #282c34;
-    font-family: sans-serif;
-    color: white;
     padding: 50px 15px;
     gap: 20px;
 }
 
-a {
-    color: #61dafb;
-}
-
-input {
-    font-size: 1em;
-    height: 1.8em;
-    border: none;
-    border-radius: 5px;
-    padding: 2px 8px;
+.theme {
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
 .energies {
@@ -51,12 +44,6 @@ td {
     padding: 2px 8px;
 }
 
-.material-symbols-outlined {
-    color: #a0aabe;
-    vertical-align: middle;
-    cursor: pointer;
-}
-
 td.number {
     text-align: right;
 }
@@ -74,7 +61,6 @@ td.number {
 }
 
 .description {
-    color: #ccc;
     margin-top: 1em;
     max-width: 650px;
 }
