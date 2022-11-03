@@ -46,7 +46,9 @@
     <canvas baseChart [type]="'scatter'" [data]="chartData" [options]="chartOptions" [legend]="chartLegend"
         (chartClick)="chartClicked($event)"></canvas>
 </div>
-<p class="faded" *ngIf="selected.length > 0">Pinch, scroll or ctrl+drag to zoom. Drag to pan.</p>
+<p class="faded" *ngIf="selected.length > 0">
+    Pinch, scroll or ctrl+drag to zoom. Drag to pan. Tap/click to choose an energy.
+</p>
 <p class="description faded">
     Calculates anomalous scattering factors (f' and f") using the
     <a href="https://doi.org/10.1107/S0567739481000600">Cromer-Liberman</a>
