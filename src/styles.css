@@ -52,3 +52,31 @@ p.faded {
 body.light p.faded {
     color: #666;
 }
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    align-items: center;
+    padding: 2px 8px;
+}
+
+th {
+    font-weight: normal;
+    border-bottom: 1px solid hsl(220, 15%, 50%);
+    padding-bottom: 6px;
+}
+
+body.light th {
+    border-bottom: 1px solid hsl(220, 15%, 70%);
+}
+
+tbody tr:first-child td {
+    padding-top: 6px;
+}
+
+td.number {
+    text-align: right;
+}
