@@ -8,7 +8,7 @@
     background-color: #282c34;
     font-family: sans-serif;
     color: white;
-    padding: 15px;
+    padding: 50px 15px;
     gap: 20px;
 }
 
@@ -71,12 +71,6 @@ td.number {
     width: 100%;
     max-width: 1000px;
     height: 350px;
-}
-
-.zoom {
-    display: flex;
-    gap: 20px;
-    font-size: 1.1em;
 }
 
 .description {

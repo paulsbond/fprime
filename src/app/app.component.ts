@@ -2,13 +2,14 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Element, elements } from './elements';
 import { Chart } from "chart.js";
 import annotationPlugin from "chartjs-plugin-annotation";
+import zoomPlugin from 'chartjs-plugin-zoom';
 import { BaseChartDirective } from 'ng2-charts';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { ChartConfiguration, ChartDataset } from "chart.js";
 
 declare const Module: any;
 const hc = 12398.4197386209;
-Chart.register(annotationPlugin);
+Chart.register(annotationPlugin, zoomPlugin);
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,6 @@ Chart.register(annotationPlugin);
 })
 export class AppComponent {
   public search: string = "";
-  public wavelength = 0.9795;
   public elements: Element[] = elements;
   public selected: Element[] = [];
   public chartData: ChartConfiguration<'scatter'>['data'] = { datasets: [] };
@@ -33,13 +33,25 @@ export class AppComponent {
         annotations: [
           {
             type: "line",
-            xMin: 12658,
-            xMax: 12658,
+            xMin: 12398,
+            xMax: 12398,
             borderColor: "#777",
           }
         ]
       },
-      tooltip: { enabled: false }
+      tooltip: { enabled: false },
+      zoom: {
+        limits: {
+          x: { min: 0, max: 25000 },
+          y: { min: 'original', max: 'original' },
+        },
+        pan: { enabled: true },
+        zoom: {
+          drag: { enabled: true, modifierKey: 'ctrl' },
+          pinch: { enabled: true },
+          wheel: { enabled: true },
+        }
+      }
     },
     interaction: {
       intersect: false,
@@ -47,8 +59,8 @@ export class AppComponent {
     }
   };
   public chartLegend = false;
-  public zoom: number = 8192;
-  private _energy = 12658;
+  private _wavelength = 1;
+  private _energy = 12398;
   private energySubject = new Subject<number>();
   private colors = [
     "#3366cc",
@@ -59,25 +71,28 @@ export class AppComponent {
   ];
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
+  public get wavelength() { return this._wavelength; }
+  public set wavelength(wavelength: number) {
+    const energy = Math.round(hc / wavelength);
+    this.set_wavelength_and_energy(wavelength, energy);
+  }
   public get energy() { return this._energy; }
-
-  public set energy(value: number) {
-    this._energy = value;
-    this.energySubject.next(value);
+  public set energy(energy: number) {
+    const wavelength = +(hc / energy).toFixed(4);
+    this.set_wavelength_and_energy(wavelength, energy);
+  }
+  private set_wavelength_and_energy(wavelength: number, energy: number) {
+    if (energy > 0 && energy <= 25000) {
+      this._wavelength = wavelength;
+      this._energy = energy;
+      this.energySubject.next(energy);
+    }
   }
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {
     this.energySubject
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe(this.energyChanged);
-  }
-
-  wavelengthInput() {
-    this.energy = Math.round(hc / this.wavelength);
-  };
-
-  energyInput() {
-    this.wavelength = +(hc / this.energy).toFixed(4);
   }
 
   searchInput() {
@@ -95,10 +110,8 @@ export class AppComponent {
   }
 
   chartClicked = (event: any) => {
-    this.zoom /= 2;
     const energy = event.event.chart.scales.x.getValueForPixel(event.event.x);
     this.energy = Math.round(energy);
-    this.energyInput();
   }
 
   public f1(z: number, energy: number): number {
@@ -123,11 +136,6 @@ export class AppComponent {
     this.updateChartData();
   }
 
-  public update_zoom(zoom: number) {
-    this.zoom = zoom;
-    this.updateChartData();
-  }
-
   private updateChartData() {
     this.chartData.datasets = [];
     this.selected.forEach((element) => {
@@ -140,10 +148,7 @@ export class AppComponent {
 
   private datasets(element: Element): ChartDataset<'scatter'>[] {
     const energies = new Module.VectorDouble();
-    const min_energy = this.energy - this.zoom;
-    const max_energy = this.energy + this.zoom;
-    const energy_step = (max_energy - min_energy) / 500;
-    for (let energy = min_energy; energy <= max_energy; energy += energy_step) {
+    for (let energy = 0; energy <= 25000; energy += 25) {
       energies.push_back(energy);
     }
     const fprimes = Module.fprimes(element.z, energies);
